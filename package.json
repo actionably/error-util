@@ -1,0 +1,22 @@
+{
+  "name": "error-util",
+  "version": "1.0.0",
+  "description": "Util for turning javascript error object into a string with stack trace.",
+  "main": "error-util.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actionably/error-util.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/actionably/error-util/issues"
+  },
+  "homepage": "https://github.com/actionably/error-util#readme",
+  "dependencies": {
+    "lodash": "4.17.4"
+  }
+}
