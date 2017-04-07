@@ -1,6 +1,6 @@
 {
   "name": "error-util",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Util for turning javascript error object into a string with stack trace.",
   "main": "error-util.js",
   "scripts": {
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/actionably/error-util#readme",
   "dependencies": {
-    "lodash": "4.17.4"
+    "airbrake": "1.2.2",
+    "lodash": "4.17.4",
+    "q": "1.5.0"
   }
 }
