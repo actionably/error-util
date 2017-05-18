@@ -25,10 +25,11 @@ class ErrorUtil {
       console.error('ERROR500:: ', JSON.stringify(context))
       console.error('ERROR500:: ', JSON.stringify(error))
       console.error('ERROR500:: ', error.stack)
-      error.message += `event = ${JSON.stringify(event)} 
-           context = ${JSON.stringify(context)}
-          ${this.errorToString(error)}`
+      console.error('ERROR500:: ', this.errorToString(error))
+
       if (this.airbrake) {
+        error.lambdaContext = context
+        error.lambdaEvent = event
         this.airbrake.notify(error, (err2, url) => {
           if (err2) {
             console.error('unable to save to airbrake ' + this.errorToString(err2))
