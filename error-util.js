@@ -64,13 +64,19 @@ class ErrorUtil {
     return s
   }
 
-  logToAirbrake(error) {
+  logToAirbrake(error, metadata) {
     if (!this.airbrake) {
       this.initializeAirbrake()
     }
     if (!this.airbrake) {
       console.error(error)
       return
+    }
+
+    if(metadata) {
+      error.referenceUUID = uuidV4()
+      console.error('ERROR500:: ', error.referenceUUID)
+      console.error('ERROR500::METADATA:: ', JSON.stringify(metadata, null, 2))
     }
 
     this.airbrake.notify(error, (err2, url) => {
