@@ -1,6 +1,6 @@
 {
   "name": "error-util",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Util for turning javascript error object into a string with stack trace.",
   "main": "error-util.js",
   "scripts": {
