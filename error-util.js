@@ -2,6 +2,7 @@
 
 const _ = require('lodash')
 const q = require('q')
+const uuidV4 = require('uuid/v4')
 
 class ErrorUtil {
   initializeAirbrake() {
@@ -21,6 +22,8 @@ class ErrorUtil {
       callback(null, retValue)
     }, error => {
       this.initializeAirbrake()
+      const referenceUUID = uuidV4()
+      console.error('ERROR500:: ', referenceUUID)
       console.error('ERROR500:: ', JSON.stringify(event))
       console.error('ERROR500:: ', JSON.stringify(context))
       console.error('ERROR500:: ', JSON.stringify(error))
@@ -28,8 +31,7 @@ class ErrorUtil {
       console.error('ERROR500:: ', this.errorToString(error))
 
       if (this.airbrake) {
-        error.lambdaContext = context
-        error.lambdaEvent = event
+        error.referenceUUID = referenceUUID
         this.airbrake.notify(error, (err2, url) => {
           if (err2) {
             console.error('unable to save to airbrake ' + this.errorToString(err2))
