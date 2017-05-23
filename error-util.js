@@ -75,8 +75,8 @@ class ErrorUtil {
 
     if(metadata) {
       error.referenceUUID = uuidV4()
-      console.error('ERROR500:: ', error.referenceUUID)
-      console.error('ERROR500::METADATA:: ', JSON.stringify(metadata, null, 2))
+      console.error(`ERROR::CONTINUE::${error.referenceUUID}:: `, JSON.stringify(metadata, null, 2))
+      console.error(`ERROR::CONTINUE::`, this.errorToString(error))
     }
 
     this.airbrake.notify(error, (err2, url) => {
