@@ -87,11 +87,16 @@ class ErrorUtil {
         console.error('Error saved to airbrake ' + url)
       })
     }
-
   }
 
   logToAirbrake(error, metadata) {
     this.log(error, metadata, true, 'ERROR')
+  }
+
+  inintializeSharedMetadata() {
+    return {
+      referenceUUID: uuidV4()
+    }
   }
 }
 
