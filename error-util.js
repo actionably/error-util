@@ -64,6 +64,30 @@ class ErrorUtil {
     return s
   }
 
+  log(error, metadata, toAirbrake, consoleLevel) {
+    if(metadata) {
+      error.referenceUUID = metadata.referenceUUID || uuidV4()
+      if (consoleLevel) {
+        console.error(`${consoleLevel}::CONTINUE::${error.referenceUUID}::`, JSON.stringify(metadata, null, 2), this.errorToString(error))
+      }
+    }
+
+    if(toAirbrake && !this.airbrake) {
+      this.initializeAirbrake()
+      if(!this.airbrake) {
+        console.log(error)
+        return
+      }
+      this.airbrake.notify(error, (err2, url) => {
+        if (err2) {
+          console.error('unable to save to airbrake ' + this.errorToString(err2))
+        }
+        console.error('Error saved to airbrake ' + url)
+      })
+    }
+
+  }
+
   logToAirbrake(error, metadata) {
     if (!this.airbrake) {
       this.initializeAirbrake()
@@ -74,9 +98,8 @@ class ErrorUtil {
     }
 
     if(metadata) {
-      error.referenceUUID = uuidV4()
-      console.error(`ERROR::CONTINUE::${error.referenceUUID}:: `, JSON.stringify(metadata, null, 2))
-      console.error(`ERROR::CONTINUE::`, this.errorToString(error))
+      error.referenceUUID = metadata.referenceUUID || uuidV4()
+      console.error(`ERROR::CONTINUE::${error.referenceUUID}:: `, JSON.stringify(metadata, null, 2), this.errorToString(error))
     }
 
     this.airbrake.notify(error, (err2, url) => {
